@@ -7,6 +7,8 @@ url = require('url')
 # This function sends user documents to Searchly for indexing.
 # It consumes data from Kinesis events for user create/update/delete.
 
+process.env.NODE_ENV = 'development'
+
 # Store sensitive variables in an environment file outside of source control.
 dotenv.load()
 
