@@ -1,0 +1,12 @@
+---
+  framework: "mocha"
+  src_files:
+    - "node_modules/chai/chai.js"
+    - "node_modules/sinon/pkg/sinon-1.12.2.js"
+    - 'index.coffee'
+    - "test/index.coffee"
+  launchers:
+    Mocha:
+      command: "mocha test/index.coffee"
+  launch_in_dev:
+    - "Mocha"

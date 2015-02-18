@@ -1,0 +1,5 @@
+--require coffee-script/register
+--compilers coffee:coffee-script
+--reporter dot
+--timeout 2000
+--slow 75
