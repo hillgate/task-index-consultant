@@ -49,8 +49,12 @@ indexConsultant = (consultant, callback) ->
     buildIndex(consultant)
     consultant.id
   ).on('data', (data) ->
+    console.log "Consultant indexed: #{consultant.id}"
+    console.log data
     callback null, data
   ).on('error', (err) ->
+    console.log "ERROR: Consultant index #{consultant.id}"
+    console.log err
     callback err, null
   ).exec()
 
@@ -69,8 +73,12 @@ removeConsultant = (consultant, callback) ->
     'document'
     qryObj
   ).on('data', (data) ->
+    console.log "Consultant deleted: #{consultant.id}"
+    console.log data
     callback null, data
   ).on('error', (err) ->
+    console.log "ERROR: Consultant delete #{consultant.id}"
+    console.log err
     callback err, null
   ).exec()
 
