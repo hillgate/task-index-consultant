@@ -2,6 +2,7 @@ _ = require('lodash')
 Chance = require('chance')
 ElasticSearchClient = require('elasticsearchclient')
 expect = require('chai').expect
+fs = require('fs')
 url = require('url')
 TaskIndexConsultant = require('../')
 
@@ -74,6 +75,10 @@ performSearch = (name, callback) ->
       callback err, null
     .exec()
 
+writeFileLocally = (name, event) ->
+  filename = "./test/#{name}.json"
+  fs.writeFile filename, JSON.stringify(event, undefined, 2)
+
 describe 'TaskIndexConsultant', ->
 
   @timeout(10000)
@@ -94,6 +99,7 @@ describe 'TaskIndexConsultant', ->
           expect(_.pluck results, 'id').to.not.include(testId)
           done()
 
+    writeFileLocally 'otherEvent', otherEvent
     TaskIndexConsultant.handler otherEvent, testContext
 
   it 'should ignore companies', (done) ->
@@ -114,6 +120,7 @@ describe 'TaskIndexConsultant', ->
           expect(_.pluck results, 'id').to.not.include(testId)
           done()
 
+    writeFileLocally 'companyEvent', companyEvent
     TaskIndexConsultant.handler companyEvent, testContext
 
   it 'should index newly created users', (done) ->
@@ -133,6 +140,7 @@ describe 'TaskIndexConsultant', ->
           expect(_.pluck results, 'id').to.include(testId)
           done()
 
+    writeFileLocally 'createEvent', createEvent
     TaskIndexConsultant.handler createEvent, testContext
 
   it 'should index updated users', (done) ->
@@ -152,6 +160,7 @@ describe 'TaskIndexConsultant', ->
           expect(_.pluck results, 'id').to.include(testId)
           done()
 
+    writeFileLocally 'updateEvent', updateEvent
     TaskIndexConsultant.handler updateEvent, testContext
 
   it 'should remove deleted users', (done) ->
@@ -183,4 +192,5 @@ describe 'TaskIndexConsultant', ->
           expect(_.pluck results, 'id').to.not.include(testId)
           done()
 
+    writeFileLocally 'deleteEvent', deleteEvent
     TaskIndexConsultant.handler createEvent, firstTestContext
