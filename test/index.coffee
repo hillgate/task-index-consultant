@@ -3,7 +3,7 @@ Chance = require('chance')
 ElasticSearchClient = require('elasticsearchclient')
 expect = require('chai').expect
 url = require('url')
-TaskIndexConsultant = require('../index')
+TaskIndexConsultant = require('../')
 
 chance = new Chance()
 
